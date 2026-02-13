@@ -1,9 +1,10 @@
-# 👨‍🍳 CHEFgpt | AI Kusina Assistant
+# 🧬 Nutribot | AI Nutrition Assistant
 
-![Project Screenshot](image_95baf7.png)
+![Project Screenshot](image_placeholder.png)
+*(Replace this with a screenshot of your new Profile Form)*
 
-> **"Anong lulutuin mo?"** (What are you cooking?)
-> A resourceful, witty, and culturally aware cooking assistant powered by **Google Gemini** and **Next.js**.
+> **"Precision Nutrition, Grounded in Data."**
+> A context-aware dietary assistant that customizes advice based on your biological profile (TDEE, Macros, Goals). Powered by **Google Gemini** and **Next.js**.
 
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.95-009688?style=flat-square&logo=fastapi)
@@ -12,38 +13,38 @@
 
 ## 📖 About The Project
 
-**CHEFgpt** isn't just another recipe generator. It is built with a specific **"Diskarte Protocol"** (Resourcefulness Protocol). 
+**DietQA** is an evolution of standard recipe chatbots. Instead of generic cooking advice, DietQA acts as a **Nutritionist** that strictly adheres to user-specific biological constraints.
 
-Most recipe apps ask you to buy more ingredients. CHEFgpt asks what you *already have* and creates the best possible meal out of it. It is designed for the Filipino context, understanding local ingredients (sardines, rice, egg) and constraints (no oven, limited budget).
+Unlike standard LLM interactions, DietQA enforces a **Mandatory Onboarding Flow**. The user *cannot* access the chat without defining their Age, Weight, Height, Activity Level, and Goals (Cut/Bulk/Maintain). This data is invisibly injected into every AI context window, ensuring that every answer—whether it's a recipe or a scientific explanation—is mathematically tailored to the user's specific caloric needs.
 
 ### ✨ Key Features
 
-* **🧠 Strict "Diskarte" Mode:** The AI is prompted to never ask for extra ingredients. If you only have eggs and flour, it will invent a recipe for just those two items.
-* **🗣️ Taglish Persona:** Interacts in a natural, confident Filipino/English mix.
-* **📒 Digital Cookbook:** Pin and save your favorite generated recipes to a sidebar for easy access.
-* **🖨️ Print-Ready:** One-click formatting to print recipes for the kitchen.
-* **🎨 Modern UI:** A dark-themed, glassmorphism-inspired interface using Tailwind CSS and Inter typography.
+* **🔒 Biometric Gatekeeper:** A modal-first UI that captures user metrics (Age, Gender, Weight, Goal) before the session begins.
+* **🧠 Context-Injection Engine:** The backend invisibly appends the user's profile to the prompt, allowing the AI to calculate TDEE and macros dynamically without the user repeating themselves.
+* **🎓 Academic & Structured Tone:** Responses follow a strict format: **Direct Answer** → **Nutritional Science** → **Recommendation** → **Safety Note**.
+* **🥗 Macro-Friendly Recipe Generation:** Ask "What can I cook with eggs and spinach?" and get a recipe that specifically aligns with your "Weight Loss" or "Muscle Gain" goal.
+* **⚠️ Safety Guardrails:** Programmed to refuse extreme caloric deficits and provide responsible health disclaimers.
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-* **Framework:** [Next.js](https://nextjs.org/) (App Router)
+* **Framework:** [Next.js 14](https://nextjs.org/) (App Router)
 * **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+* **State Management:** React Hooks for Profile/Chat Context
 * **Authentication:** [Clerk](https://clerk.com/)
-* **Typography:** Inter & Geist Mono
 
 ### Backend
 * **Server:** [FastAPI](https://fastapi.tiangolo.com/)
-* **AI Model:** [Google Gemini API](https://ai.google.dev/) (Auto-detects Pro or Flash models)
+* **AI Model:** [Google Gemini 1.5 Pro](https://ai.google.dev/) (Prioritized for reasoning capabilities)
 * **Language:** Python 3.9+
 
 ---
 
-## 🚀 Mise en place (Setup Guide)
+## 🚀 Setup Guide
 
-Follow these instructions to get the kitchen running locally.
+Follow these instructions to get the application running locally.
 
 ### 1. Prerequisites
 * Node.js (v18+)
@@ -53,7 +54,7 @@ Follow these instructions to get the kitchen running locally.
 
 ### 2. Backend Setup (The Brain)
 
-Navigate to the backend folder (or root, depending on your structure) and set up the Python environment.
+Navigate to the root directory where `main.py` is located.
 
 ```bash
 # Create a virtual environment
@@ -67,7 +68,7 @@ source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
-Create a .env file in the same directory as main.py:
+Create a .env file in the same directory:
 
 Code snippet
 GOOGLE_API_KEY=your_google_gemini_api_key_here
@@ -76,13 +77,14 @@ Start the Backend Server:
 Bash
 python main.py
 # Output: 🇵🇭 Chef Noypi (Strict Diskarte Mode) is Ready!
+# (Note: Console log might still say Chef Noypi, but the Brain is now DietQA)
 3. Frontend Setup (The Interface)
-Open a new terminal and navigate to the frontend directory.
+Open a new terminal.
 
 Bash
 # Install Node modules
 npm install
-Create a .env.local file in the root of your Next.js project:
+Create a .env.local file in the root of your project:
 
 Code snippet
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
@@ -95,28 +97,39 @@ npm run dev
 Open http://localhost:3000 in your browser.
 
 📂 Project Structure
-CHEFgpt/
+Bash
+DietQA/
 ├── app/
 │   ├── layout.tsx       # Root layout with Clerk Provider & Font config
-│   ├── page.tsx         # Main Chat Interface (State, Markdown, UI)
+│   ├── page.tsx         # Logic: Profile Form -> Chat State -> API Call
 │   └── globals.css      # Tailwind & Custom Semantic Variables
-├── main.py              # FastAPI Server & Gemini Prompt Engineering
+├── main.py              # FastAPI Server & "DietQA" System Instruction
 ├── requirements.txt     # Python Dependencies
 ├── tailwind.config.ts   # Tailwind Configuration
 └── ...
-🧠 The "Diskarte" Prompt
-The core logic resides in main.py. The system instruction ensures the AI adheres to the following rules:
+🧠 System Logic
+The core logic resides in the interaction between page.tsx and main.py.
 
-Assume Absolute Constraints: Do not suggest buying more items.
+The Handshake: The frontend collects user data (UserProfile interface).
 
-No Follow-up Questions: Immediate action based on input.
+The Injection: When the first message is sent, the frontend constructs a hidden system prompt:
 
-Tawid-Gutom Creativity: Suggest boiling/steaming if oil is missing; suggest weird combos if necessary.
+Plaintext
+[SYSTEM CONTEXT - USER PROFILE DATA]
+Name: Jeroen
+Age: 25
+Goal: Muscle Gain
+...
+The Processing: main.py uses the DietQA System Instruction to enforce structure:
 
-Format: Returns a structured Markdown recipe with a "Chef's Secret" tip.
+Rule 1: Always reference the profile.
+
+Rule 2: No marketing fluff; use academic English.
+
+Rule 3: Prioritize protein/satiety explanation.
 
 🤝 Contributing
-Got a better way to cook adobo? Or a better way to code this? Contributions are welcome!
+Got a better way to calculate TDEE? Or a better way to code this? Contributions are welcome!
 
 Fork the Project
 
@@ -129,8 +142,8 @@ Push to the Branch (git push origin feature/AmazingFeature)
 Open a Pull Request
 
 📄 License
-Distributed under the MIT License. See LICENSE for more information.
+Distributed under the MIT License.
 
 <div align="center">
-<p>Made with ❤️ and 🍚 in the Philippines</p>
+<p>Powered by Google Gemini 1.5</p>
 </div>

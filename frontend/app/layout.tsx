@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'CHEFgpt | AI Kusina Assistant',
-  description: 'Your resourceful Pinoy cooking companion.',
+  title: 'Nutribot | AI Nutrition Assistant',
+  description: 'A context-aware dietary assistant that customizes advice based on your biological profile (TDEE, Macros, Goals), and dietary preferences.',
 }
 
 export default function RootLayout({
